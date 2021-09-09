@@ -39,6 +39,22 @@ internal class ParserUtilKtTest {
       }
     }
   ],
+  "someArray4": [
+    {
+      "someArray1": [
+        "aa",
+        "bb",
+        "@name"
+      ]
+    },
+    {
+      "someArray2": [
+        "@name",
+        2,
+        3
+      ]
+    }
+  ],
   "child1": {
     "name1": "@name",
     "child2": {
@@ -50,7 +66,8 @@ internal class ParserUtilKtTest {
   }
 }"""
 
-        parseJsonToMap(json)
+        println("Result")
+        println(parseJsonToMap(json))
 
     }
 }

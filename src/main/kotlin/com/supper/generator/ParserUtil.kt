@@ -3,25 +3,28 @@ package com.supper.generator
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 
-fun parseJsonToMap(json: String): HashMap<String, *> {
-    var jsonMap = ObjectMapper().readValue<MutableMap<String, *>>(json) as HashMap<String, *>
+fun parseJsonToMap(json: String): HashMap<String, Any?> {
+    var jsonMap = ObjectMapper().readValue<MutableMap<String, Any?>>(json) as HashMap<String, Any?>
     return processMap(jsonMap)
 }
 
-fun processMap(jMap: HashMap<String, *>): HashMap<String, *> {
+fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
     println(jMap)
     for (entry in jMap.entries) {
         when (entry.value) {
             is String -> {
                 println("This is String value: ${entry.value}")
+                if (checkReplace(entry.value as String)) {
+                    jMap[entry.key] = Replacer().replaceName()
+                }
             }
             is HashMap<*, *> -> {
                 println("This is Map. Start recursion")
-                processMap(entry.value as HashMap<String, *>)
+                processMap(entry.value as HashMap<String, Any?>)
             }
             is List<*> -> {
                 println("This is Array. Start Iterate")
-                processList(entry.value as List<*>)
+                jMap[entry.key] = processList(entry.value as List<*>)
             }
             else -> println("SomElse")
         }
@@ -29,25 +32,31 @@ fun processMap(jMap: HashMap<String, *>): HashMap<String, *> {
     return jMap
 }
 
-fun processList(list: List<*>): List<*> {
-    println(list)
-    for (element in list) {
+fun processList(list: List<Any?>): List<Any?> {
+    val listToReturn: ArrayList<Any?> = ArrayList(list)
+    println(listToReturn)
+    for (element in listToReturn) {
         when (element) {
             is String -> {
                 println("This is String value: $element")
+                if (checkReplace(element)) {
+                    val index = listToReturn.indexOf(element)
+                    listToReturn[index] = Replacer().replaceName()
+                }
             }
             is HashMap<*, *> -> {
                 println("This is Map. Start recursion")
-                processMap(element as HashMap<String, *>)
+                processMap(element as HashMap<String, Any?>)
             }
-            is List<*> -> {
+            is List<Any?> -> {
                 println("This is Array. Start Iterate")
-                processList(element)
+                val index = listToReturn.indexOf(element)
+                listToReturn[index] = processList(element)
             }
             else -> println("SomElse")
         }
     }
-    return list
+    return listToReturn
 }
 
 fun checkReplace(string: String): Boolean = string.startsWith('@')
