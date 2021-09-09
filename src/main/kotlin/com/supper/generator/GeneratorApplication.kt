@@ -1,6 +1,5 @@
 package com.supper.generator
 
-import org.json.JSONObject
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.http.MediaType
@@ -22,7 +21,7 @@ fun main(args: Array<String>) {
 class RestController {
 
     @GetMapping(value = ["/generate"])
-    fun getPatients(@RequestBody jsonObject: Any): List<Any> {
+    fun getPatients(@RequestBody jsonObject: String ): List<Any> {
         var count = 1
         val jsonMap = jsonObject as Map<*, *>
         if (jsonMap.toMap().containsKey("@count")) {
