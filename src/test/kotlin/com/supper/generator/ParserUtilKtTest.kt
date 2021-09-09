@@ -11,7 +11,9 @@ internal class ParserUtilKtTest {
     fun traverseJson() {
         val json = """{
   "@count": 5,
-  "name": "@name",
+  "firstname": "@firstname",
+  "lastname": "@lastname",
+  "address": "@address",
   "someArray1": [
     "aa",
     "bb",
@@ -25,17 +27,21 @@ internal class ParserUtilKtTest {
   "someArray3": [
     {
       "child3": {
-        "name": "@name"
+        "firstname": "@firstname",
+        "lastname": "@lastname",
+        "address": "@address"
       }
     },
     {
       "child3": {
-        "name": "@name"
+        "firstname": "@firstname",
+        "lastname": "@lastname"
       }
     },
     {
       "child3": {
-        "name": "@name"
+        "firstname": "@firstname",
+        "lastname": "@lastname"
       }
     }
   ],
@@ -44,23 +50,30 @@ internal class ParserUtilKtTest {
       "someArray1": [
         "aa",
         "bb",
-        "@name"
+        "@firstname",
+        "@lastname",
+        "@address"
       ]
     },
     {
       "someArray2": [
-        "@name",
+        "@firstname",
+        "@lastname",
         2,
         3
       ]
     }
   ],
   "child1": {
-    "name1": "@name",
+    "firstname1": "@firstname",
+    "lastname": "@lastname",
     "child2": {
-      "name2": "@name",
+      "firstname2": "@firstname",
+      "lastname": "@lastname",
+      "address": "@address",
       "child3": {
-        "name": "@name"
+        "firstname": "@firstname",
+        "lastname": "@lastname"
       }
     }
   }

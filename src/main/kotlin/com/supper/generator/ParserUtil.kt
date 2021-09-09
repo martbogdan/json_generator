@@ -15,7 +15,7 @@ fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
             is String -> {
                 println("This is String value: ${entry.value}")
                 if (checkReplace(entry.value as String)) {
-                    jMap[entry.key] = Replacer().replaceName()
+                    jMap[entry.key] = Replacer().replaceValue(entry.value as String)
                 }
             }
             is HashMap<*, *> -> {
@@ -41,7 +41,7 @@ fun processList(list: List<Any?>): List<Any?> {
                 println("This is String value: $element")
                 if (checkReplace(element)) {
                     val index = listToReturn.indexOf(element)
-                    listToReturn[index] = Replacer().replaceName()
+                    listToReturn[index] = Replacer().replaceValue(element)
                 }
             }
             is HashMap<*, *> -> {
