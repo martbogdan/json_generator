@@ -2,15 +2,12 @@ package com.supper.generator
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.supper.generator.replacer.FirstNameReplacer
-import com.supper.generator.replacer.LastNameReplacer
-import com.supper.generator.replacer.Replacer
+import com.supper.generator.replacer.*
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 
-class ParserUtil() {
+class ParserUtil(@Autowired var replacerList: List<Replacer>) {
 
-    var replacer: Replacer = Replacer.getReplacer()
+    var replacer = ReplacerChain(replacerList)
 
 
     fun parseJsonToMap(json: String): HashMap<String, Any?> {
