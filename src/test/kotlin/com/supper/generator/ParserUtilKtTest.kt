@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-internal class ParserUtilKtTest {
+internal class ParserUtilKtTest() {
 
     @Test
     fun traverseJson() {
@@ -14,6 +14,7 @@ internal class ParserUtilKtTest {
   "firstname": "@firstname",
   "lastname": "@lastname",
   "address": "@address",
+  "notreplace": "@donotreplace",
   "someArray1": [
     "aa",
     "bb",
@@ -80,7 +81,7 @@ internal class ParserUtilKtTest {
 }"""
 
         println("Result")
-        println(parseJsonToMap(json))
+        println(ParserUtil().parseJsonToMap(json))
 
     }
 }
