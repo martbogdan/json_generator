@@ -4,18 +4,17 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.supper.generator.replacer.*
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 
-class ParserUtil(@Autowired var replacerList: List<Replacer>) {
-
-    var replacer = ReplacerChain(replacerList)
-
+@Component
+class ParserUtil(@Autowired var replacer: ReplacerChain) {
 
     fun parseJsonToMap(json: String): HashMap<String, Any?> {
-        var jsonMap = ObjectMapper().readValue<MutableMap<String, Any?>>(json) as HashMap<String, Any?>
+        val jsonMap = ObjectMapper().readValue<MutableMap<String, Any?>>(json) as HashMap<String, Any?>
         return processMap(jsonMap)
     }
 
-    fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
+    private fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
         println(jMap)
         for (entry in jMap.entries) {
             when (entry.value) {
@@ -39,7 +38,7 @@ class ParserUtil(@Autowired var replacerList: List<Replacer>) {
         return jMap
     }
 
-    fun processList(list: List<Any?>): List<Any?> {
+    private fun processList(list: List<Any?>): List<Any?> {
         val listToReturn: ArrayList<Any?> = ArrayList(list)
         println(listToReturn)
         for (element in listToReturn) {
@@ -66,7 +65,7 @@ class ParserUtil(@Autowired var replacerList: List<Replacer>) {
         return listToReturn
     }
 
-    fun checkReplace(string: String): Boolean = string.startsWith('@')
+    private fun checkReplace(string: String): Boolean = string.startsWith('@')
 
 
 }

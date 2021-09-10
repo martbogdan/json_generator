@@ -1,5 +1,6 @@
 package com.supper.generator
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.http.MediaType
@@ -18,19 +19,20 @@ fun main(args: Array<String>) {
 }
 
 @RestController
-class RestController {
+class RestController(@Autowired var parserUtil: ParserUtil) {
 
     @GetMapping(value = ["/generate"])
     fun getPatients(@RequestBody jsonObject: String ): List<Any> {
-        var count = 1
-        val jsonMap = jsonObject as Map<*, *>
-        if (jsonMap.toMap().containsKey("@count")) {
-            count = jsonMap["@count"] as Int
-        }
+        var jsonStr = jsonObject
+        var count = 500
+//        val jsonMap = jsonObject as Map<*, *>
+//        if (jsonMap.toMap().containsKey("@count")) {
+//            count = jsonMap["@count"] as Int
+//        }
 
         val listPatients = mutableListOf<Any>()
         repeat(count) {
-            listPatients.add(replaceValues(jsonMap))
+            listPatients.add(parserUtil.parseJsonToMap(jsonStr))
         }
         return listPatients
     }
