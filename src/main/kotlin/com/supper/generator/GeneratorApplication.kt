@@ -19,47 +19,10 @@ fun main(args: Array<String>) {
     runApplication<GeneratorApplication>(*args)
 }
 
+
+// NOT for this APP
 @RestController
 class RestController(@Autowired val parserUtil: ParserUtil) {
-
-    @GetMapping(value = ["/generate"])
-    fun getPatients(@RequestBody jsonObject: String, @RequestParam count: Int ): List<Any> {
-        val logger = LoggerFactory.getLogger(javaClass)
-
-        val start = System.currentTimeMillis()
-       // var count = 20
-//        val jsonMap = jsonObject as Map<*, *>
-//        if (jsonMap.toMap().containsKey("@count")) {
-//            count = jsonMap["@count"] as Int
-//        }
-
-        val listPatients = mutableListOf<Any>()
-        repeat(count) {
-            listPatients.add(parserUtil.parseJsonToMap(jsonObject))
-        }
-        val end = System.currentTimeMillis()
-
-        logger.info("Time for $count objects is ${end - start} ms")
-//        println("Time for $count objects is ${end - start} ms")
-        return listPatients
-    }
-
-    fun replaceValues(jsonMap: Map<*, *>): HashMap<Any?, Any?> {
-        var jjj = jsonMap.filterKeys { k -> k != "@count" }.toMutableMap() as HashMap<Any?, Any?>
-        for (v in jjj.entries) {
-            when (v.value) {
-                "@name" -> {
-                    jjj[v.key] = getRandomName()
-                }
-                else -> {
-                    jjj[v.key] = replaceValues(v.value as Map<*, *>)
-                }
-            }
-        }
-        return jjj
-    }
-
-
 
     @GetMapping(value = ["/stocks/{symbol}"], produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     fun prices(@PathVariable symbol: String): Flux<StockPrice> {

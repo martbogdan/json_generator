@@ -9,11 +9,28 @@ import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
 @Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 class ParserUtil(@Autowired val replacer: ReplacerChain) {
 
+    companion object {
+        const val COUNT = "@count"
+    }
+
     fun parseJsonToMap(json: String): HashMap<String, Any?> {
-        val jsonMap = ObjectMapper().readValue<MutableMap<String, Any?>>(json) as HashMap<String, Any?>
+        return ObjectMapper().readValue<MutableMap<String, Any?>>(json) as HashMap<String, Any?>
+    }
+
+    fun getCount(json: String, count: Int?): Int {
+        val jsonMap = parseJsonToMap(json)
+        return if (count != null && count > 0) {
+            count
+        } else if (jsonMap.containsKey(COUNT)) {
+            jsonMap[COUNT] as Int
+        } else 1
+    }
+
+    fun processReplace(json: String): HashMap<String, Any?> {
+        val jsonMap = parseJsonToMap(json)
+        jsonMap.remove(COUNT)
         return processMap(jsonMap)
     }
 

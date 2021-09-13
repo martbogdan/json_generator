@@ -84,7 +84,7 @@ internal class ParserUtilKtTest(@Autowired val replacer: ReplacerChain) {
 }"""
 
         println("Result")
-        println(ParserUtil(replacer).parseJsonToMap(json))
+        println(ParserUtil(replacer).processReplace(json))
 
     }
 }
