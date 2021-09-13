@@ -9,6 +9,6 @@ class AddressReplacer : Replacer {
     override fun canReplace(string: String): Boolean = string == replaceValue
 
     override fun generate(): String {
-        return Faker().address.fullAddress()
+        return "Faker().address.fullAddress()"
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-internal class ParserUtilKtTest(@Autowired var replacer: ReplacerChain) {
+internal class ParserUtilKtTest(@Autowired val replacer: ReplacerChain) {
 
     @Test
     fun traverseJson() {

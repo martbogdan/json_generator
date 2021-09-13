@@ -1,5 +1,6 @@
 package com.supper.generator
 
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -19,12 +20,14 @@ fun main(args: Array<String>) {
 }
 
 @RestController
-class RestController(@Autowired var parserUtil: ParserUtil) {
+class RestController(@Autowired val parserUtil: ParserUtil) {
 
     @GetMapping(value = ["/generate"])
-    fun getPatients(@RequestBody jsonObject: String ): List<Any> {
-        var jsonStr = jsonObject
-        var count = 500
+    fun getPatients(@RequestBody jsonObject: String, @RequestParam count: Int ): List<Any> {
+        val logger = LoggerFactory.getLogger(javaClass)
+
+        val start = System.currentTimeMillis()
+       // var count = 20
 //        val jsonMap = jsonObject as Map<*, *>
 //        if (jsonMap.toMap().containsKey("@count")) {
 //            count = jsonMap["@count"] as Int
@@ -32,8 +35,12 @@ class RestController(@Autowired var parserUtil: ParserUtil) {
 
         val listPatients = mutableListOf<Any>()
         repeat(count) {
-            listPatients.add(parserUtil.parseJsonToMap(jsonStr))
+            listPatients.add(parserUtil.parseJsonToMap(jsonObject))
         }
+        val end = System.currentTimeMillis()
+
+        logger.info("Time for $count objects is ${end - start} ms")
+//        println("Time for $count objects is ${end - start} ms")
         return listPatients
     }
 

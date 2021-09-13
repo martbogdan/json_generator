@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class ReplacerChain(@Autowired var replacerList: List<Replacer>) {
+class ReplacerChain(@Autowired val replacerList: List<Replacer>) {
 
     fun replace(string: String): String {
         for (item in replacerList) {

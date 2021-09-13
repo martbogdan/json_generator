@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.supper.generator.replacer.*
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.config.ConfigurableBeanFactory
+import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
 @Component
-class ParserUtil(@Autowired var replacer: ReplacerChain) {
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+class ParserUtil(@Autowired val replacer: ReplacerChain) {
 
     fun parseJsonToMap(json: String): HashMap<String, Any?> {
         val jsonMap = ObjectMapper().readValue<MutableMap<String, Any?>>(json) as HashMap<String, Any?>
@@ -15,6 +18,7 @@ class ParserUtil(@Autowired var replacer: ReplacerChain) {
     }
 
     private fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
+        val start = System.currentTimeMillis()
         println(jMap)
         for (entry in jMap.entries) {
             when (entry.value) {
@@ -35,6 +39,8 @@ class ParserUtil(@Autowired var replacer: ReplacerChain) {
                 else -> println("SomElse")
             }
         }
+        val end = System.currentTimeMillis()
+        println("Time to process Map ${end - start}")
         return jMap
     }
 
