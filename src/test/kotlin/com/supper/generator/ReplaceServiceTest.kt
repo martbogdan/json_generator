@@ -1,14 +1,14 @@
 package com.supper.generator
 
-import com.supper.generator.replacer.Replacer
 import com.supper.generator.replacer.ReplacerChain
+import com.supper.generator.service.ReplaceService
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-internal class ParserUtilKtTest(@Autowired val replacer: ReplacerChain) {
+internal class ReplaceServiceTest(@Autowired val replacer: ReplacerChain) {
 
     @Test
     fun traverseJson() {
@@ -84,7 +84,7 @@ internal class ParserUtilKtTest(@Autowired val replacer: ReplacerChain) {
 }"""
 
         println("Result")
-        println(ParserUtil(replacer).processReplace(json))
+        println(ReplaceService(replacer).processReplace(json))
 
     }
 }

@@ -1,6 +1,6 @@
 package com.supper.generator
 
-import org.slf4j.LoggerFactory
+import com.supper.generator.service.ReplaceService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
 
 // NOT for this APP
 @RestController
-class RestController(@Autowired val parserUtil: ParserUtil) {
+class RestController(@Autowired val replaceService: ReplaceService) {
 
     @GetMapping(value = ["/stocks/{symbol}"], produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     fun prices(@PathVariable symbol: String): Flux<StockPrice> {
@@ -31,10 +31,12 @@ class RestController(@Autowired val parserUtil: ParserUtil) {
     }
 
     private fun randomStockPrice(): Double {
-        return ThreadLocalRandom.current().nextDouble(100.00 )
+        return ThreadLocalRandom.current().nextDouble(100.00)
     }
 }
 
-data class StockPrice (val symbol: String,
-                       val price: Double,
-                       val time: LocalDateTime)
+data class StockPrice(
+    val symbol: String,
+    val price: Double,
+    val time: LocalDateTime
+)

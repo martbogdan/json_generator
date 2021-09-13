@@ -1,15 +1,13 @@
-package com.supper.generator
+package com.supper.generator.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.supper.generator.replacer.*
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.config.ConfigurableBeanFactory
-import org.springframework.context.annotation.Scope
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
-@Component
-class ParserUtil(@Autowired val replacer: ReplacerChain) {
+@Service
+class ReplaceService(@Autowired val replacer: ReplacerChain) {
 
     companion object {
         const val COUNT = "@count"
