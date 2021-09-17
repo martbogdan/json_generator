@@ -9,9 +9,7 @@ class FirstNameReplacer : Replacer {
 
     override val replaceValue: String = "@firstname"
 
-    override fun canReplace(string: String): Boolean = string == replaceValue
-
-    override fun generate(): String {
+    override fun generate(string: String): String {
         return FirstNameRandomizer().getRandom()
     }
 }
