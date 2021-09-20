@@ -1,7 +1,7 @@
 package com.supper.generator.replacer
 
 
-import com.supper.randomizer.FirstNameRandomizerImpl
+import com.supper.randomizer.FirstNameRandomizer
 import org.springframework.stereotype.Component
 
 @Component
@@ -11,6 +11,6 @@ class FirstNameReplacer : Replacer {
 
     override fun generate(string: String): String {
 
-        return FirstNameRandomizerImpl().getRandom(parseValue(string))
+        return FirstNameRandomizer().getRandom(parseValue(string))
     }
 }

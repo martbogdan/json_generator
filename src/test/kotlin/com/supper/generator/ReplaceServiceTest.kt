@@ -89,7 +89,7 @@ internal class ReplaceServiceTest(@Autowired val replacer: ReplacerChain) {
 }"""
 
         println("Result")
-        println(ReplaceService(replacer).processReplace(json2))
+        println(ReplaceService(replacer).processReplace(json))
 
     }
 }

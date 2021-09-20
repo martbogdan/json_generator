@@ -1,12 +1,14 @@
 package com.supper.randomizer
 
-import org.springframework.stereotype.Component
+import kotlin.random.Random
 
-@Component
-interface NumberRandomizer: Randomizer<Int> {
+class NumberRandomizer : Randomizer<Int> {
+    override fun getRandom(list: List<String>): Int {
+        println("value is $list")
+        if (list.isEmpty()) {
+            return Random.nextInt()
+        }
+        return Random.nextInt(list[0].toInt(), list[1].toInt())
 
-
-
-
-
+    }
 }
