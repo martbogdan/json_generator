@@ -1,14 +1,16 @@
 package com.supper.generator.replacer
 
 import com.supper.randomizer.LastNameRandomizer
+import com.supper.randomizer.LastNameRandomizerImpl
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class LastNameReplacer : Replacer {
+class LastNameReplacer(@Autowired val lastNameRandomizer: LastNameRandomizer) : Replacer {
 
     override val replaceValue: String = "@lastname"
 
     override fun generate(string: String): String {
-        return LastNameRandomizer().getRandom(parseValue(string))
+        return lastNameRandomizer.getRandomLastName()
     }
 }
