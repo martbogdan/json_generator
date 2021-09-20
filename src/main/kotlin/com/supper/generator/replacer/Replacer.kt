@@ -8,11 +8,12 @@ interface Replacer {
 
     fun canReplace(string: String): Boolean = string.contains(replaceValue)
 
-    fun parseValue(string: String): List<Any> {
+    fun parseValue(string: String): List<String> {
         if (canParse(string)) {
-            return string
+            var list = string
                 .substring(string.indexOf('(')+1, string.indexOf(')'))
                 .split(',')
+            return list.map { e -> e.trim() }
         }
         return emptyList()
     }

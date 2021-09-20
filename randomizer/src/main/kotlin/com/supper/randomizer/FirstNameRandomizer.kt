@@ -1,5 +1,8 @@
-package com.supper.generator.randomizer
+package com.supper.randomizer
 
+import org.springframework.stereotype.Component
+
+@Component
 interface FirstNameRandomizer : Randomizer<String> {
     val listNames: List<String>
         get() = listOf<String>(
@@ -13,10 +16,6 @@ interface FirstNameRandomizer : Randomizer<String> {
             "Shannan", "Augy", "Sallyann", "Drew", "Laurianne", "Ashbey", "Onfroi", "Barde", "Irving", "Claudius", "Maris",
             "Pauli", "Casi", "Jammie", "Ansley", "Ellie", "Kirbee", "Nikola", "Aundrea", "Melitta", "Iris", "Brigitta",
             "Stewart", "Obed")
-
-    override fun getRandom(vararg value: Any): String {
-        TODO("Not yet implemented")
-    }
 
 
 }

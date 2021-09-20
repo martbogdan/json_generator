@@ -8,11 +8,11 @@
         <version>2.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>customFaker</artifactId>
+    <groupId>com.supper</groupId>
+    <artifactId>randomizer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>customFaker</name>
-    <description>Demo project for Spring Boot</description>
+    <name>randomizer</name>
+    <description>randomizer</description>
     <properties>
         <java.version>11</java.version>
         <kotlin.version>1.5.21</kotlin.version>

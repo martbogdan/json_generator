@@ -85,7 +85,7 @@ internal class ReplaceServiceTest(@Autowired val replacer: ReplacerChain) {
         val json2 = """{
   "@count": 5,
   "num1": "@number",
-  "num2": "@number(1 , 100 ,false)"
+  "num2": "@number( 1  ,    100    ,   false  )"
 }"""
 
         println("Result")
