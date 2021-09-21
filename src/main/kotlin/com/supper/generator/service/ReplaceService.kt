@@ -32,6 +32,21 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
         return processMap(jsonMap)
     }
 
+    private fun hasReferences(json: String): Boolean = json.contains('#')
+
+    private fun getReferences(json: String): List<String> {
+        var result = mutableListOf<String>()
+        for (index in 0..json.length) {
+            if (json[index] == '#') {
+                val ind = json.substring(index).indexOfFirst { c -> c == ',' }
+                result.add(json.substring(index, ind))
+            }
+        }
+
+
+        return result
+    }
+
     private fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
         val start = System.currentTimeMillis()
         println(jMap)
