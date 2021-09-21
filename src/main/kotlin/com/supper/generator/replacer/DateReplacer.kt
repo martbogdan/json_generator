@@ -15,7 +15,11 @@ class DateReplacer(@Autowired val dateRandomizer: DateRandomizer): Replacer {
         if (list.size == 2) {
             val dateFrom = parseDate(list[0])
             val dateUntil = parseDate(list[1])
-            return dateRandomizer.getRandomDate(dateFrom, dateUntil)
+            return try {
+                dateRandomizer.getRandomDate(dateFrom, dateUntil)
+            } catch (e: IllegalArgumentException) {
+                string
+            }
         }
         return dateRandomizer.getRandomDate()
     }
@@ -25,11 +29,11 @@ class DateReplacer(@Autowired val dateRandomizer: DateRandomizer): Replacer {
         return LocalDate.parse(string, formatter)
     }
 
-    fun checkValue(value: String) {
+    fun checkValue(value: String): String {
         when (value) {
-            "#dateOfBirth" -> {}
-            "now" -> {}
+            "#dateOfBirth" -> {return parseDate(value).toString()}
+            "now" -> {return LocalDate.now().toString()}
         }
-
+        return value
     }
 }
