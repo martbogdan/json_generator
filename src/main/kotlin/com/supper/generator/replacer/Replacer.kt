@@ -3,7 +3,7 @@ package com.supper.generator.replacer
 interface Replacer {
     val replaceValue: String
 
-    fun generate(string: String): Any
+    fun generate(string: String): Any?
 
 
     fun canReplace(string: String): Boolean = string.contains(replaceValue)
