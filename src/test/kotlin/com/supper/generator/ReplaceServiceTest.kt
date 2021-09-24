@@ -9,10 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 internal class ReplaceServiceTest(@Autowired val replacer: ReplacerChain) {
+    val replaceService = ReplaceService(replacer)
 
-    @Test
-    fun traverseJson() {
-        val json = """{
+    val json = """{
   "@count": 5,
   "firstname": "@firstname",
   "lastname": "@lastname",
@@ -82,14 +81,27 @@ internal class ReplaceServiceTest(@Autowired val replacer: ReplacerChain) {
     }
   }
 }"""
-        val json2 = """{
+    val json2 = """{
   "@count": 5,
   "num1": "@number",
   "num2": "@number( 1  ,    100    ,   false  )"
 }"""
+    val json3 =
+        """{  
+   "@count": 5,
+   "num1": "@number",
+   "date": "2021/01/01",
+   "date1": "@date",
+   "date2": "@date(#date1, 2021/09/01)",
+   "num2": "@number(1, #date2,   false  )",
+   "someArray": ["#date", "#date1", "#date2"]
+}"""
 
+    @Test
+    fun traverseJson() {
         println("Result")
-        println(ReplaceService(replacer).processReplace(json))
-
+        println(replaceService.processReplace(json))
     }
+
+
 }
