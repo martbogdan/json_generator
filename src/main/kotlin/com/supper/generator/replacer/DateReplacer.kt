@@ -25,7 +25,7 @@ class DateReplacer(@Autowired val dateRandomizer: DateRandomizer): Replacer {
     }
 
     fun parseDate(string: String): LocalDate {
-        val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         return LocalDate.parse(string, formatter)
     }
 

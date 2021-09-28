@@ -30,12 +30,13 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
     fun processReplace(json: String): HashMap<String, Any?> {
         val jsonMap = parseJsonToMap(json)
         jsonMap.remove(COUNT)
-        return processMap(jsonMap)
+
+        return processMap(ReferenceService(this).preProcessMap(jsonMap))
     }
 
 
 
-    private fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
+    fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
         val start = System.currentTimeMillis()
         println(jMap)
         for (entry in jMap.entries) {
