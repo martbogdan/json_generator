@@ -37,10 +37,10 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
         for (ref in refSet) {
             refMap[ref] = jMap[ref]
         }
-        return replaceReferenceValues(jMap, refMap)
+        return replaceReferenceValues(refMap)
     }
 
-    fun replaceReferenceValues(jMap: HashMap<String, Any?>, refMap: HashMap<String, Any?>): HashMap<String, Any?> {
+    private fun replaceReferenceValues(refMap: HashMap<String, Any?>): HashMap<String, Any?> {
         if (refMap.toString().contains('#')) {
             while (refMap.toString().contains('#')) {
                 for (entry in refMap.entries) {
@@ -61,7 +61,7 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
         return refMap
     }
 
-    fun replaceReferenceMap(refMap: HashMap<String, Any?>, jMap: HashMap<String, Any?>) {
+    private fun replaceReferenceMap(refMap: HashMap<String, Any?>, jMap: HashMap<String, Any?>) {
         for (entry in jMap.entries) {
             when (entry.value) {
                 is String -> {
@@ -81,7 +81,7 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
         }
     }
 
-    fun replaceReferenceList(refMap: HashMap<String, Any?>, list: List<Any?>): List<Any?> {
+    private fun replaceReferenceList(refMap: HashMap<String, Any?>, list: List<Any?>): List<Any?> {
         val result: ArrayList<Any?> = ArrayList(list)
         for (element in result) {
             when (element) {
