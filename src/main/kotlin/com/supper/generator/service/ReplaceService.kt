@@ -49,15 +49,15 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
     }
 
     private fun processList(list: List<Any?>): List<Any?> {
-        val listToReturn: ArrayList<Any?> = ArrayList(list)
-        println(listToReturn)
-        for (element in listToReturn) {
+        val result: ArrayList<Any?> = ArrayList(list)
+        println(result)
+        for (element in result) {
             when (element) {
                 is String -> {
                     println("This is String value: $element")
                     if (checkReplace(element)) {
-                        val index = listToReturn.indexOf(element)
-                        listToReturn[index] = replacer.replace(element)
+                        val index = result.indexOf(element)
+                        result[index] = replacer.replace(element)
                     }
                 }
                 is HashMap<*, *> -> {
@@ -66,13 +66,13 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
                 }
                 is List<Any?> -> {
                     println("This is Array. Start Iterate")
-                    val index = listToReturn.indexOf(element)
-                    listToReturn[index] = processList(element)
+                    val index = result.indexOf(element)
+                    result[index] = processList(element)
                 }
                 else -> println("SomElse")
             }
         }
-        return listToReturn
+        return result
     }
 
     fun checkReplace(string: String): Boolean = string.startsWith('@')

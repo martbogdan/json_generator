@@ -82,24 +82,24 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
     }
 
     fun replaceReferenceList(refMap: HashMap<String, Any?>, list: List<Any?>): List<Any?> {
-        val listToReturn: ArrayList<Any?> = ArrayList(list)
-        for (element in listToReturn) {
+        val result: ArrayList<Any?> = ArrayList(list)
+        for (element in result) {
             when (element) {
                 is String -> {
                     if (element.startsWith('#')) {
-                        val index = listToReturn.indexOf(element)
-                        listToReturn[index] = refMap[element.substring(1)]
+                        val index = result.indexOf(element)
+                        result[index] = refMap[element.substring(1)]
                     }
                 }
                 is HashMap<*, *> -> {
                     replaceReferenceMap(refMap, element as HashMap<String, Any?>)
                 }
                 is List<Any?> -> {
-                    val index = listToReturn.indexOf(element)
-                    listToReturn[index] = replaceReferenceList(refMap, element)
+                    val index = result.indexOf(element)
+                    result[index] = replaceReferenceList(refMap, element)
                 }
             }
         }
-        return listToReturn
+        return result
     }
 }
