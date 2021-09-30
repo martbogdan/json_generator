@@ -3,28 +3,15 @@ package com.supper.generator.service
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.supper.generator.replacer.*
+import com.supper.generator.service.GenerateService.Companion.COUNT
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.function.Function
 
 @Service
 class ReplaceService(@Autowired val replacer: ReplacerChain) {
 
-    companion object {
-        const val COUNT = "@count"
-    }
-
     fun parseJsonToMap(json: String): HashMap<String, Any?> {
         return ObjectMapper().readValue<MutableMap<String, Any?>>(json) as HashMap<String, Any?>
-    }
-
-    fun getCount(json: String, count: Int?): Int {
-        val jsonMap = parseJsonToMap(json)
-        return if (count != null && count > 0) {
-            count
-        } else if (jsonMap.containsKey(COUNT)) {
-            jsonMap[COUNT] as Int
-        } else 1
     }
 
     fun processReplace(json: String): HashMap<String, Any?> {
@@ -33,8 +20,6 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
 
         return processMap(ReferenceService(this).preProcessMap(jsonMap))
     }
-
-
 
     fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
         val start = System.currentTimeMillis()
