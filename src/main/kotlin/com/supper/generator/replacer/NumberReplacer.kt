@@ -11,14 +11,19 @@ class NumberReplacer(@Autowired val numberRandomizer: NumberRandomizer) : Replac
 
     override fun generate(string: String): Any? {
         val list = parseValue(string)
-        if (list.size == 3) {
-            return try {
-                numberRandomizer.getRandomNumber(list[0].toInt(), list[1].toInt(), list[2].toBoolean())
-            } catch (e: NumberFormatException) {
-                string
+        return when (list.size) {
+            2 -> {numberRandomizer.getRandomNumber(list[0].toInt(), list[1].toInt())
+//                try {
+//                    numberRandomizer.getRandomNumber(list[0].toInt(), list[1].toInt())
+//                } catch (e: NumberFormatException) {
+////                    e.message
+//                } catch (ex: IllegalArgumentException) {
+////                    ex.message
+//                }
             }
+            0 -> numberRandomizer.getRandomNumber()
+            else -> "Check input parameters"
         }
-        return numberRandomizer.getRandomNumber()
     }
 
 

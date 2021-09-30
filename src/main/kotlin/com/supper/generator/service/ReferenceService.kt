@@ -12,7 +12,7 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
         val result = mutableSetOf<String>()
         for (index in json.indices) {
             if (json[index] == '#') {
-                val ind = json.substring(index).indexOfFirst { c -> c == ',' || c == '"' || c == ']' }
+                val ind = json.substring(index).indexOfFirst { c -> c == ',' || c == '"' || c == ']' || c == ')' }
                 result.add(json.substring(index + 1, index + ind))
             }
         }
