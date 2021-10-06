@@ -1,6 +1,6 @@
 package com.supper.randomizer
 
-import com.example.customfaker.data.FirstNameFaker
+import com.supper.customfaker.data.FirstNameFaker
 
 class FirstNameRandomizerImpl : FirstNameRandomizer {
 

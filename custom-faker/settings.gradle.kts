@@ -1,5 +1,4 @@
-rootProject.name = "randomizer"
-include("custom-faker")
+rootProject.name = ":custom-faker"
 
 pluginManagement {
     plugins {

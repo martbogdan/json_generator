@@ -1,6 +1,6 @@
 package com.supper.generator.replacer
 
-import io.github.serpro69.kfaker.Faker
+//import io.github.serpro69.kfaker.Faker
 import org.springframework.stereotype.Component
 
 @Component
