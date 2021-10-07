@@ -13,7 +13,8 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
         for (index in json.indices) {
             if (json[index] == '#') {
                 val ind = json.substring(index).indexOfFirst { c -> c == ',' || c == '"' || c == ']' || c == ')' }
-                result.add(json.substring(index + 1, index + ind))
+                val end = if (index + ind < 0) json.lastIndex else index + ind
+                result.add(json.substring(index + 1, end))
             }
         }
         return result
