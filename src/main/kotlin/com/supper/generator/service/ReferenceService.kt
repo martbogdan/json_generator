@@ -6,14 +6,15 @@ import org.springframework.stereotype.Service
 @Service
 class ReferenceService(@Autowired val replaceService: ReplaceService) {
 
+    private val endOfReferenceSet = setOf(',', '"', ']', ')', '}')
     private fun hasReferences(json: String): Boolean = json.contains('#')
 
     fun getReferences(json: String): Set<String> {
         val result = mutableSetOf<String>()
         for (index in json.indices) {
             if (json[index] == '#') {
-                val ind = json.substring(index).indexOfFirst { c -> c == ',' || c == '"' || c == ']' || c == ')' }
-                val end = if (index + ind < 0) json.lastIndex else index + ind
+                val ind = json.substring(index).indexOfFirst { c -> endOfReferenceSet.contains(c) }
+                val end = if (ind < 0) json.lastIndex + 1 else index + ind
                 result.add(json.substring(index + 1, end))
             }
         }

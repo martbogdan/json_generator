@@ -111,9 +111,17 @@ given template will generate array of 10 objects
 ```
 # User API
 ```
-GET http//{HOST}/generate
-Content-Type - application/json
-Parameter       Required    Description
-  count           false       Number of objects to be generated
-Request Body - json
+GET /generate HTTP/1.1
+Host: localhost:8082
+Content-Type: application/json
+Content-Length: 1618
+
+{
+  "@count": 1,
+  "firstname": "@firstname",
+  "lastname": "@lastname",
+  "address": "@address",
+  "oneof": "@oneOf(#firstname, #date1, f, #num2, #child3, tttt)",
+
+}
 ```

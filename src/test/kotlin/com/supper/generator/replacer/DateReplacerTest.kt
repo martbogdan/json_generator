@@ -21,7 +21,7 @@ internal class DateReplacerTest {
 
     @Test
     fun parseDate() {
-        val dateString = "2021/12/21"
+        val dateString = "2021-12-21"
         val expected = LocalDate.of(2021, 12, 21)
         val actual = DateReplacer(dateRandomizer).parseDate(dateString)
         println("expected $expected")
