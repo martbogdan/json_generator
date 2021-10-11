@@ -35,8 +35,11 @@ internal class OneAtReplacerTest {
     fun getArrayParam() {
         val oneAtReplacer = OneAtReplacer()
         val str = "1, [[v1, v2], [v3, v4], [v5, v6]]"
+        val expected = "[v1, v2], [v3, v4], [v5, v6]"
         val result = oneAtReplacer.getArrayParam(str)
         println(result)
+        assertEquals(expected, result)
+
     }
 
     @Test

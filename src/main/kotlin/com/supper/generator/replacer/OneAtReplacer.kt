@@ -25,11 +25,13 @@ class OneAtReplacer: Replacer {
 
     fun getIndexParam(string: String): Int = string.split(',')[0].toInt()
 
-    fun getArrayParam(string: String):String = string
-        .substring(string.indexOfFirst { c ->  c == ',' } + 1)
-        .trim()
-        .drop(1)
-        .dropLast(1)
+    fun getArrayParam(string: String): String {
+        var result = string.substring(string.indexOfFirst { c -> c == ',' } + 1).trim()
+        if (result.startsWith('[') && result.endsWith(']')) {
+            result = result.drop(1).dropLast(1)
+        }
+        return result
+    }
 
 
     fun getInnerArrays(string: String): List<String> {
