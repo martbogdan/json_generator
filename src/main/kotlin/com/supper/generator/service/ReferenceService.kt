@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service
 @Service
 class ReferenceService(@Autowired val replaceService: ReplaceService) {
 
+    private val variableService = VariableService(replaceService)
     private val endOfReferenceSet = setOf(',', '"', ']', ')', '}')
     private fun hasReferences(json: String): Boolean = json.contains('#')
 
@@ -30,7 +31,7 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
         }
 
         replaceReferenceMap(refMap, jMap)
-
+        jMap.remove("@var")
         return jMap
     }
 
@@ -38,6 +39,10 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
         val refMap = HashMap<String, Any?>()
         for (ref in refSet) {
             refMap[ref] = jMap[ref]
+        }
+        val varMap = jMap["@var"] as HashMap<String, Any?>
+        for (entry in varMap.entries) {
+            refMap[entry.key] = entry.value
         }
         return replaceReferenceValues(refMap)
     }

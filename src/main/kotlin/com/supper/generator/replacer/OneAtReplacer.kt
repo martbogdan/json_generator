@@ -3,30 +3,34 @@ package com.supper.generator.replacer
 import org.springframework.stereotype.Component
 
 @Component
-class OneOfReplacer: Replacer {
-    override val replaceValue: String = "@oneOf"
+class OneAtReplacer: Replacer {
+    override val replaceValue: String = "@oneAt"
 
     override fun generate(string: String): Any? {
-        val list = parseValue(string)
-        return if (list.isNotEmpty()) list.random() else ""
+        val index = getIndexParam(getParamsString(string))
+        return parseValue(string)[index]
     }
 
     override fun parseValue(string: String): List<String> {
         if (canParse(string)) {
-            val str = getArrayValues(string)
+            var str = getParamsString(string)
+            str = getArrayParam(str)
             var list = if (str.contains('[')) getInnerArrays(str) else str.split(',')
             return list.map { e -> e.trim() }
         }
         return emptyList()
     }
 
-    fun getArrayValues(string: String): String {
-        var result = string.drop(7).dropLast(1)
-        if (result.startsWith('[') && result.endsWith(']')) {
-            result = result.drop(1).dropLast(1)
-        }
-        return result
-    }
+    fun getParamsString(string: String): String = string.drop(7).dropLast(1)
+
+    fun getIndexParam(string: String): Int = string.split(',')[0].toInt()
+
+    fun getArrayParam(string: String):String = string
+        .substring(string.indexOfFirst { c ->  c == ',' } + 1)
+        .trim()
+        .drop(1)
+        .dropLast(1)
+
 
     fun getInnerArrays(string: String): List<String> {
         val list = mutableListOf<String>()
@@ -46,6 +50,5 @@ class OneOfReplacer: Replacer {
         }
         return list
     }
-
 
 }

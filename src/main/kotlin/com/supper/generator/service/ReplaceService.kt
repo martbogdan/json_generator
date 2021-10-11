@@ -18,7 +18,12 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
         val jsonMap = parseJsonToMap(json)
         jsonMap.remove(COUNT)
 
-        return processMap(ReferenceService(this).preProcessMap(jsonMap))
+        // 1 replace var TODO
+
+        // 2 replace ref
+        var result = ReferenceService(this).preProcessMap(jsonMap)
+
+        return processMap(result)
     }
 
     fun processMap(jMap: HashMap<String, Any?>): HashMap<String, Any?> {
