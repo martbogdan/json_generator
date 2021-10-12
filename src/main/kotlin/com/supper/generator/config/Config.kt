@@ -17,4 +17,7 @@ class Config {
 
     @Bean
     fun dateRandomizer(): DateRandomizer = DateRandomizerImpl()
+
+    @Bean
+    fun doubleRandomizer(): DoubleRandomizer = DoubleRandomizerImpl()
 }

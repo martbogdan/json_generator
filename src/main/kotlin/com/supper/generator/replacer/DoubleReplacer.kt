@@ -1,23 +1,20 @@
 package com.supper.generator.replacer
 
-import com.supper.randomizer.NumberRandomizer
+import com.supper.randomizer.DoubleRandomizer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class NumberReplacer(@Autowired val numberRandomizer: NumberRandomizer) : Replacer {
-    override val replaceValue: String = "@number"
+class DoubleReplacer(@Autowired val doubleRandomizer: DoubleRandomizer): Replacer {
+    override val replaceValue: String = "@double"
 
     override fun generate(string: String): Any? {
         val list = parseValue(string)
         return when (list.size) {
-            2 -> numberRandomizer.getRandomNumber(list[0].toInt(), list[1].toInt())
-            0 -> numberRandomizer.getRandomNumber()
+            2 -> doubleRandomizer.getRandomDouble(list[0].toDouble(), list[1].toDouble())
+            0 -> doubleRandomizer.getRandomDouble()
             else -> "Check input parameters"
         }
+
     }
-
-
-
-
 }

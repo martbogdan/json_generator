@@ -7,7 +7,6 @@ class NumberRandomizerImpl : NumberRandomizer {
         val untilMax: Int = if (until < Int.MAX_VALUE) { until+1 } else { until }
         if (from > untilMax) { //TODO think on implementation
             return Random.nextInt(untilMax, from)
-        //    throw IllegalArgumentException("Check input number parameters and references (from: $from, until: $until)")
         }
         return Random.nextInt(from, untilMax)
     }

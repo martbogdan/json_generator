@@ -1,7 +1,6 @@
 package com.supper.generator.replacer
 
 import com.supper.randomizer.LastNameRandomizer
-import com.supper.randomizer.LastNameRandomizerImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
