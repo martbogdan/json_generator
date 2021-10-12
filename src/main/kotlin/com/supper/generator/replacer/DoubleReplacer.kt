@@ -11,8 +11,8 @@ class DoubleReplacer(@Autowired val doubleRandomizer: DoubleRandomizer): Replace
     override fun generate(string: String): Any? {
         val list = parseValue(string)
         return when (list.size) {
-            2 -> doubleRandomizer.getRandomDouble(list[0].toDouble(), list[1].toDouble())
-            0 -> doubleRandomizer.getRandomDouble()
+            2 -> String.format("%.3f", doubleRandomizer.getRandomDouble(list[0].toDouble(), list[1].toDouble()))
+            0 -> String.format("%.3f", doubleRandomizer.getRandomDouble())
             else -> "Check input parameters"
         }
 
