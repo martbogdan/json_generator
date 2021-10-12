@@ -15,7 +15,7 @@ class OneAtReplacer: Replacer {
         if (canParse(string)) {
             var str = getParamsString(string)
             str = getArrayParam(str)
-            var list = if (str.contains('[')) getInnerArrays(str) else str.split(',')
+            var list = if (str.contains('[') || str.contains('{')) getInnerArrays(str) else str.split(',')
             return list.map { e -> e.trim() }
         }
         return emptyList()
@@ -38,11 +38,12 @@ class OneAtReplacer: Replacer {
         val list = mutableListOf<String>()
         var start = -1
         var end = -1
+        val brackets = checkBrackets(string)
         for (index in string.indices) {
-            if (string[index] == '[') {
+            if (string[index] == brackets[0]) {
                 start = index
             }
-            if (string[index] == ']') {
+            if (string[index] == brackets[1]) {
                 end = index
             }
             if (start in 0 until end) {
@@ -51,6 +52,15 @@ class OneAtReplacer: Replacer {
             }
         }
         return list
+    }
+
+    fun checkBrackets(string: String): List<Char> {
+        if (string.contains('[')) {
+            return listOf('[', ']')
+        } else if (string.contains('{') && !string.contains('[')) {
+            return listOf('{', '}')
+        }
+        return listOf()
     }
 
 }
