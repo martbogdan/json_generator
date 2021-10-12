@@ -25,15 +25,11 @@ class DateReplacer(@Autowired val dateRandomizer: DateRandomizer): Replacer {
     }
 
     fun parseDate(string: String): LocalDate {
+        if ("now" == string) {
+            return LocalDate.now()
+        }
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         return LocalDate.parse(string, formatter)
     }
 
-    fun checkValue(value: String): String {
-        when (value) {
-            "#dateOfBirth" -> {return parseDate(value).toString()}
-            "now" -> {return LocalDate.now().toString()}
-        }
-        return value
-    }
 }
