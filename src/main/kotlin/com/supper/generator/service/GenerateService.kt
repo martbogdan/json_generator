@@ -1,5 +1,6 @@
 package com.supper.generator.service
 
+import com.fasterxml.jackson.databind.util.JSONPObject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,6 +19,7 @@ class GenerateService(@Autowired val replaceService: ReplaceService) {
         val start = System.currentTimeMillis()
 
         val countTimes = getCount(jsonTemplate, count)
+        logger.info("Started generating $countTimes objects...")
         val jsonList = mutableListOf<Any>()
         repeat(countTimes) {
             jsonList.add(replaceService.processReplace(jsonTemplate))
