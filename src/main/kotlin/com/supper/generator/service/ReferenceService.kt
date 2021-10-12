@@ -39,9 +39,11 @@ class ReferenceService(@Autowired val replaceService: ReplaceService) {
         for (ref in refSet) {
             refMap[ref] = jMap[ref]
         }
-        val varMap = jMap["@var"] as HashMap<String, Any?>
-        for (entry in varMap.entries) {
-            refMap[entry.key] = entry.value
+        if (jMap.containsKey("@var")) {
+            val varMap = jMap["@var"] as HashMap<String, Any?>
+            for (entry in varMap.entries) {
+                refMap[entry.key] = entry.value
+            }
         }
         return replaceReferenceValues(refMap)
     }
