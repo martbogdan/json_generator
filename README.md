@@ -2,13 +2,15 @@
 Spring boot Application for generating random json data from temlate
 # Awailable functions:
 * @count - number of json objects will be generated. Can be ignored if count added as parameter to the URL
+* @var - set of variables for generating
 * @firstname - generates random first name
 * @lastname - generates random last name
 * @date - generates random date from '1900-01-01' until now
 * @date(FROM, UNTIL) - generates random date from 'FROM' until 'UNTIL'
 * @number - generates random Integer from -2147483648 until 2147483647
 * @number(FROM, UNTIL) - generates random Integer from 'FROM' until 'UNTIL'
-*
+* @oneOf(1, 2, 3, 4), @oneOf([1, 2, 3]) @oneOf([[1, 2], [3, 4]]) - generates random one value of giver array as parameter
+* @oneAt(0, [1, 2, 3]) - returns value at index from array
 References in function parameters:
 * '#examppleField' - will return from given or already generated json field 
  (Example: { "date1": "2021-01-01", "date2": "@date(#date1, 2021-12-05)" }, field "date2" will be in range 2021-01-01 : 2021-12-05)
@@ -19,11 +21,19 @@ given template will generate array of 10 objects
 # Template:
 {
   "@count": 10,
+  "@var": {
+    "var1": "var",
+    "vararr": ["v1", "v2"],
+    "dicNameCode": [["d1", "c1"], ["d2", "c2"], ["v3", "c3"], ["v4", "c4"], ["v5", "c5"], ["v6", "c6"], ["v7", "c7"], ["v8", "c8"]],
+    "dicCode1": "@oneOf(#dicNameCode)"
+  },
   "firstname": "@firstname",
   "lastname": "@lastname",
   "date1": "@date",
   "date2": "@date(2020-12-05, 2021-09-01)",
   "date3": "@date(#date1, 2021-12-05)",
+  "dicName": "@oneAt(0, #dicCode1)",
+  "dicCode": "@oneAt(1, #dicCode1)",
   "number1": "@number",
   "number2": "@number(-200, 500)",
   "number3": "@number(#number2, 600)",
