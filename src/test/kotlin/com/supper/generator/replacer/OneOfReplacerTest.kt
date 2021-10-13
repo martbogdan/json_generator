@@ -2,8 +2,6 @@ package com.supper.generator.replacer
 
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
-
 internal class OneOfReplacerTest {
 
     @Test
@@ -12,16 +10,30 @@ internal class OneOfReplacerTest {
         val v2 = "@oneOf([1,2,3,4])"
         val v3 = "@oneOf([[1,2],[3,4]])"
         val oneOfReplacer = OneOfReplacer()
-        println(oneOfReplacer.getArrayValues(v1))
-        println(oneOfReplacer.getArrayValues(v2))
-        println(oneOfReplacer.getArrayValues(v3))
+
+        val res1 = oneOfReplacer.getArrayValues(v1)
+        val res2 = oneOfReplacer.getArrayValues(v2)
+        val res3 = oneOfReplacer.getArrayValues(v3)
+        println(res1)
+        println(res2)
+        println(res3)
+        assert("1,2,3,4" == res1)
+        assert("1,2,3,4" == res2)
+        assert("[1,2],[3,4]" == res3)
     }
 
     @Test
     fun getInnerArraysTest() {
-        var v3 = "[1,2],[3,4]"
+        val v1 = "[1,2],[3,4]"
+        val v2 = "{1,2},{3,4}"
         val oneOfReplacer = OneOfReplacer()
 
-        println(oneOfReplacer.getInnerArrays(v3))
+        val res1 = oneOfReplacer.getInnerArrays(v1)
+        val res2 = oneOfReplacer.getInnerArrays(v2)
+        println(res1)
+        println(res2)
+
+        assert(listOf("[1,2]","[3,4]") == res1)
+        assert(listOf("{1,2}","{3,4}") == res2)
     }
 }

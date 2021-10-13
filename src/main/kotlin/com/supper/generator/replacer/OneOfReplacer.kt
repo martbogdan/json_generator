@@ -3,7 +3,7 @@ package com.supper.generator.replacer
 import org.springframework.stereotype.Component
 
 @Component
-class OneOfReplacer: Replacer {
+class OneOfReplacer: Replacer, OneAtReplacer() {
     override val replaceValue: String = "@oneOf"
 
     override fun generate(string: String): Any? {
@@ -27,25 +27,5 @@ class OneOfReplacer: Replacer {
         }
         return result
     }
-
-    fun getInnerArrays(string: String): List<String> {
-        val list = mutableListOf<String>()
-        var start = -1
-        var end = -1
-        for (index in string.indices) {
-            if (string[index] == '[') {
-                start = index
-            }
-            if (string[index] == ']') {
-                end = index
-            }
-            if (start in 0 until end) {
-                list.add(string.substring(start, end + 1))
-                start = end
-            }
-        }
-        return list
-    }
-
 
 }
