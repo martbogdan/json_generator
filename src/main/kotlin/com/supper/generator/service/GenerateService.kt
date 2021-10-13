@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class GenerateService(@Autowired val replaceService: ReplaceService) {
 
     companion object {
-        const val COUNT = "@count"
+        const val COUNT_KEY = "@count"
     }
 
     val logger: Logger = LoggerFactory.getLogger(javaClass)
@@ -33,8 +33,8 @@ class GenerateService(@Autowired val replaceService: ReplaceService) {
         val jsonMap = replaceService.parseJsonToMap(json)
         return if (count != null && count > 0) {
             count
-        } else if (jsonMap.containsKey(COUNT)) {
-            jsonMap[COUNT] as Int
+        } else if (jsonMap.containsKey(COUNT_KEY)) {
+            jsonMap[COUNT_KEY] as Int
         } else 1
     }
 }

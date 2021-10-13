@@ -3,7 +3,7 @@ package com.supper.generator.service
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.supper.generator.replacer.*
-import com.supper.generator.service.GenerateService.Companion.COUNT
+import com.supper.generator.service.GenerateService.Companion.COUNT_KEY
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -16,7 +16,7 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
 
     fun processReplace(json: String): HashMap<String, Any?> {
         val jsonMap = parseJsonToMap(json)
-        jsonMap.remove(COUNT)
+        jsonMap.remove(COUNT_KEY)
 
         val result = ReferenceService(this).preProcessMap(jsonMap)
 
