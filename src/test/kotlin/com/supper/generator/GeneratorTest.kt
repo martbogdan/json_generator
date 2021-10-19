@@ -36,6 +36,6 @@ internal class GeneratorTest(@Autowired val generator: Generator) {
 }"""
     @Test
     fun generateJsonDataList() {
-        generator.generateJsonDataList(template, 50000000)
+        generator.generateJsonDataList(template, 5)
     }
 }
