@@ -1,11 +1,13 @@
-package com.supper.generator.config
+package com.supper.generator
 
 import com.supper.randomizer.*
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class Config {
+@ComponentScan
+class GeneratorConfiguration {
     @Bean
     fun firstNameRandomizer(): FirstNameRandomizer = FirstNameRandomizerImpl()
 
@@ -20,4 +22,7 @@ class Config {
 
     @Bean
     fun doubleRandomizer(): DoubleRandomizer = DoubleRandomizerImpl()
+
 }
+
+

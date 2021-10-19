@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("maven-publish")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("jvm")
@@ -11,14 +12,27 @@ group = "com.supper"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.supper"
+            artifactId = "generator"
+            version = "0.0.1-SNAPSHOT"
+
+            from(components["java"])
+        }
+    }
+}
+
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
     implementation(project(":randomizer"))
     implementation(project(":custom-faker"))
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -39,3 +53,5 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.bootJar { enabled = false}

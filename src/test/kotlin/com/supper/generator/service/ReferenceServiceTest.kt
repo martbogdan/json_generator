@@ -1,12 +1,13 @@
 package com.supper.generator.service
 
+import com.supper.generator.GeneratorConfiguration
 import com.supper.generator.replacer.ReplacerChain
 import org.junit.jupiter.api.Test
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@SpringBootTest(classes = [GeneratorConfiguration::class])
 internal class ReferenceServiceTest(@Autowired val replacerChain: ReplacerChain) {
 
     private val replaceService = ReplaceService(replacerChain)
@@ -15,7 +16,7 @@ internal class ReferenceServiceTest(@Autowired val replacerChain: ReplacerChain)
 
 
     val json3 =
-        """{  
+        """{
    "@count": 5,
    "num1": "@number",
    "date": "2021/01/01",

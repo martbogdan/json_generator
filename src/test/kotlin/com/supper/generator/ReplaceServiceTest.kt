@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@SpringBootTest(classes = [GeneratorConfiguration::class])
 internal class ReplaceServiceTest(@Autowired val replacer: ReplacerChain) {
     val replaceService = ReplaceService(replacer)
 
@@ -87,7 +87,7 @@ internal class ReplaceServiceTest(@Autowired val replacer: ReplacerChain) {
   "num2": "@number( 1  ,    100    ,   false  )"
 }"""
     val json3 =
-        """{  
+        """{
    "@count": 5,
    "num1": "@number",
    "date": "2021/01/01",
