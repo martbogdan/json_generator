@@ -23,7 +23,11 @@ class OneAtReplacer: Replacer {
 
     fun getParamsString(string: String): String = string.drop(7).dropLast(1)
 
-    fun getIndexParam(string: String): Int = string.split(',')[0].toInt()
+    fun getIndexParam(string: String): Int {
+        return if (string.isNotEmpty() && string.contains(','))
+            string.split(',')[0].toInt()
+        else -1
+    }
 
     fun getArrayParam(string: String): String {
         var result = string.substring(string.indexOfFirst { c -> c == ',' } + 1).trim()

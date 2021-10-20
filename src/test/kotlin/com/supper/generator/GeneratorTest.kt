@@ -12,7 +12,8 @@ internal class GeneratorTest(@Autowired val generator: Generator) {
     "dicNameCode": [["d1", "c1"], ["d2", "c2"], ["v3", "c3"], ["v4", "c4"], ["v5", "c5"], ["v6", "c6"], ["v7", "c7"], ["v8", "c8"]],
     "vitalArr": [["vd1", "vc1"], ["vd2", "vc2"], ["vd3", "vc3"], ["vd4", "vc4"], ["vd5", "vc5"], ["vd6", "vc6"], ["vd7", "vc7"], ["vd8", "vc8"]],
     "dicCode1": "@oneOf(#dicNameCode)",
-    "dicVit" : "@oneOf(#vitalArr)"
+    "dicVit" : "@oneOf(#vitalArr)",
+    "listOfTest" : "@listOf(3, {fn: @firstname})"
   },
   "firstname": "@firstname",
   "lastname": "@lastname",
@@ -21,6 +22,8 @@ internal class GeneratorTest(@Autowired val generator: Generator) {
   "regDate": "@date(#dob, #dod)",
   "randNum": "@number(1, 500)",
   "randDouble": "@double(1, 500)",
+  "listOfTestResult": "#listOfTest",
+  "listOfTest1" : "@listOf(3, {fn: @firstname})",
   "medRec" : {
         "dicFull": "#dicCode1",
         "dicObj": {
@@ -36,6 +39,7 @@ internal class GeneratorTest(@Autowired val generator: Generator) {
 }"""
     @Test
     fun generateJsonDataList() {
-        generator.generateJsonDataList(template, 5)
+        val result = generator.generateJsonDataList(template, 5)
+        println(result)
     }
 }
