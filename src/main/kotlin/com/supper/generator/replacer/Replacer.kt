@@ -6,7 +6,7 @@ interface Replacer {
     fun generate(string: String): Any?
 
 
-    fun canReplace(string: String): Boolean = string.contains(replaceValue)
+    fun canReplace(string: String): Boolean = string.startsWith(replaceValue)
 
     fun parseValue(string: String): List<String> {
         if (canParse(string)) {

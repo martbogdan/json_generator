@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("maven-publish")
+    id("signing")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("jvm")
@@ -13,15 +14,47 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.supper"
-            artifactId = "generator"
-            version = "0.0.1-SNAPSHOT"
-
-            from(components["java"])
+    repositories {
+        maven {
+            name = "oss"
+            val releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
         }
     }
+    publications {
+        withType<MavenPublication> {
+            pom {
+                name.set("generator")
+
+                scm {
+                    connection.set("https://github.com/martbogdan/json_generator.git")
+                    url.set("https://github.com/martbogdan/json_generator")
+                }
+                developers {
+                    developer {
+                        name.set("Bogdan Martseniuk")
+                        email.set("mbogdan0123@gmail.com")
+                    }
+                }
+            }
+//        create<MavenPublication>("maven") {
+//            groupId = "com.supper"
+//            artifactId = "generator"
+//            version = "0.0.1-SNAPSHOT"
+//
+//            from(components["java"])
+//        }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+        System.getenv("GPG_PRIVATE_KEY"),
+        System.getenv("GPG_PRIVATE_PASSWORD")
+    )
+    sign(publishing.publications)
 }
 
 repositories {
