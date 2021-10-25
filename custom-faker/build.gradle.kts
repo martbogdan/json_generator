@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.spring")
 }
 
-group = "com.supper"
+group = "io.github.martbogdan"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 

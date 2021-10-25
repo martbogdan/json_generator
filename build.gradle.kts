@@ -9,7 +9,7 @@ plugins {
     kotlin("plugin.spring")
 }
 
-group = "com.supper"
+group = "io.github.martbogdan"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
@@ -26,7 +26,13 @@ publishing {
         withType<MavenPublication> {
             pom {
                 name.set("generator")
-
+                description.set("Generates list of JSON Objects")
+                licenses {
+                    license {
+                        name.set("MIT")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
                 scm {
                     connection.set("https://github.com/martbogdan/json_generator.git")
                     url.set("https://github.com/martbogdan/json_generator")
