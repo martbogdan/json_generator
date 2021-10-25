@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("maven-publish")
+    id("signing")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     kotlin("jvm")
@@ -13,15 +14,58 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.supper"
-            artifactId = "randomizer"
-            version = "0.0.1-SNAPSHOT"
-
-            from(components["java"])
+    repositories {
+        maven {
+            name = "oss"
+            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            credentials {
+                username = properties.getValue("ossrhUsername").toString()
+                password = properties.getValue("ossrhPassword").toString()
+            }
         }
     }
+    publications {
+        withType<MavenPublication> {
+            pom {
+                name.set("generator")
+                description.set("Generates list of JSON Objects")
+                licenses {
+                    license {
+                        name.set("MIT")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+                url.set("https://github.com/martbogdan/json_generator")
+                issueManagement {
+                    system.set("Github")
+                    url.set("https://github.com/martbogdan/json_generator")
+                }
+                scm {
+                    connection.set("https://github.com/martbogdan/json_generator.git")
+                    url.set("https://github.com/martbogdan/json_generator")
+                }
+                developers {
+                    developer {
+                        name.set("Bogdan Martseniuk")
+                        email.set("mbogdan0123@gmail.com")
+                    }
+                }
+            }
+            groupId = "io.github.martbogdan"
+            artifactId = "randomizer"
+            version = "0.0.1-SNAPSHOT"
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+        properties.getValue("ossrhUsername").toString(),
+        properties.getValue("ossrhPassword").toString()
+    )
+    sign(publishing.publications)
 }
 
 repositories {

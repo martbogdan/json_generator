@@ -20,6 +20,10 @@ publishing {
             val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            credentials {
+                username = properties.getValue("ossrhUsername").toString()
+                password = properties.getValue("ossrhPassword").toString()
+            }
         }
     }
     publications {
@@ -33,6 +37,11 @@ publishing {
                         url.set("https://opensource.org/licenses/MIT")
                     }
                 }
+                url.set("https://github.com/martbogdan/json_generator")
+                issueManagement {
+                    system.set("Github")
+                    url.set("https://github.com/martbogdan/json_generator")
+                }
                 scm {
                     connection.set("https://github.com/martbogdan/json_generator.git")
                     url.set("https://github.com/martbogdan/json_generator")
@@ -44,6 +53,10 @@ publishing {
                     }
                 }
             }
+            groupId = "io.github.martbogdan"
+            artifactId = "generator"
+            version = "0.0.1-SNAPSHOT"
+
 //        create<MavenPublication>("maven") {
 //            groupId = "com.supper"
 //            artifactId = "generator"
