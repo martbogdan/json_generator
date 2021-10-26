@@ -1,4 +1,4 @@
-rootProject.name = ":custom-faker"
+rootProject.name = "custom-faker"
 
 pluginManagement {
     plugins {
