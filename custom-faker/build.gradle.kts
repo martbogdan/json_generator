@@ -57,13 +57,20 @@ publishing {
             artifactId = "custom-faker"
             version = "0.0.1-SNAPSHOT"
         }
+        create<MavenPublication>("maven") {
+            groupId = "io.github.martbogdan"
+            artifactId = "custom-faker"
+            version = "0.0.1-SNAPSHOT"
+
+            from(components["java"])
+        }
     }
 }
 
 signing {
     useInMemoryPgpKeys(
-        properties.getValue("ossrhUsername").toString(),
-        properties.getValue("ossrhPassword").toString()
+        properties.getValue("GPG_SIGNING_KEY").toString(),
+        properties.getValue("signing.password").toString()
     )
     sign(publishing.publications)
 }

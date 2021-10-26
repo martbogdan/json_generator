@@ -10,29 +10,29 @@ plugins {
 }
 
 group = "io.github.martbogdan"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
     repositories {
         maven {
             name = "Oss"
-            val releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
             credentials {
                 username = properties.getValue("ossrhUsername").toString()
                 password = properties.getValue("ossrhPassword").toString()
             }
         }
-        maven {
-            name = "Snapshot"
-            setUrl { "https://oss.sonatype.org/content/repositories/snapshots/" }
-            credentials {
-                username = properties.getValue("ossrhUsername").toString()
-                password = properties.getValue("ossrhPassword").toString()
-            }
-        }
+//        maven {
+//            name = "Snapshot"
+//            setUrl { "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+//            credentials {
+//                username = properties.getValue("ossrhUsername").toString()
+//                password = properties.getValue("ossrhPassword").toString()
+//            }
+//        }
     }
     publications {
         withType<MavenPublication> {
@@ -63,23 +63,22 @@ publishing {
             }
             groupId = "io.github.martbogdan"
             artifactId = "generator"
-            version = "0.0.1-SNAPSHOT"
+            version = "0.0.1"
+        }
+        create<MavenPublication>("maven") {
+            groupId = "io.github.martbogdan"
+            artifactId = "generator"
+            version = "0.0.1"
 
-//        create<MavenPublication>("maven") {
-//            groupId = "com.supper"
-//            artifactId = "generator"
-//            version = "0.0.1-SNAPSHOT"
-//
-//            from(components["java"])
-//        }
+            from(components["java"])
         }
     }
 }
 
 signing {
     useInMemoryPgpKeys(
-        properties.getValue("ossrhUsername").toString(),
-        properties.getValue("ossrhPassword").toString()
+        properties.getValue("GPG_SIGNING_KEY").toString(),
+        properties.getValue("signing.password").toString()
     )
     sign(publishing.publications)
 }
