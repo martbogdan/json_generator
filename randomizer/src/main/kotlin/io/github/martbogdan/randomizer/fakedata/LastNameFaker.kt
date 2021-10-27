@@ -1,4 +1,4 @@
-package io.github.martbogdan.customfaker.data
+package io.github.martbogdan.randomizer.fakedata
 
 class LastNameFaker {
     val listLastNames: List<String>

@@ -1,5 +1,5 @@
 rootProject.name = "generator"
-include("randomizer", "custom-faker")
+include("randomizer")
 
 pluginManagement {
     plugins {

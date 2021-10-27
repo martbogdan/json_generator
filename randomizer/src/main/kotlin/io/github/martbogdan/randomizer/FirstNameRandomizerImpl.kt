@@ -1,6 +1,6 @@
 package io.github.martbogdan.randomizer
 
-import io.github.martbogdan.customfaker.data.FirstNameFaker
+import io.github.martbogdan.randomizer.fakedata.FirstNameFaker
 
 class FirstNameRandomizerImpl : FirstNameRandomizer {
 
