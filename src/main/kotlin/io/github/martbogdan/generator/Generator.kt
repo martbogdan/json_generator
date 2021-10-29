@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class Generator(@Autowired val generateService: GenerateService) {
 
-    fun generateJsonDataList(template: String, count: Int?): List<Any> {
-        return generateService.generateJsonList(template, count)
+    fun generateData(template: String, count: Int?): Iterator<Any> {
+        return generateService.generateJson(template, count)
     }
 }

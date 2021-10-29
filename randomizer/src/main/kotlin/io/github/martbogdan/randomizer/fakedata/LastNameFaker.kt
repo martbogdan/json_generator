@@ -1,5 +1,8 @@
 package io.github.martbogdan.randomizer.fakedata
 
+import org.springframework.stereotype.Component
+
+@Component
 class LastNameFaker {
     val listLastNames: List<String>
         get() = listOf<String>(

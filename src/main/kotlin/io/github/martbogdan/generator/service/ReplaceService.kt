@@ -33,7 +33,6 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
                 }
                 is HashMap<*, *> -> processMap(entry.value as HashMap<String, Any?>)
                 is List<*> -> jMap[entry.key] = processList(entry.value as List<*>)
-                else -> println("$entry value is not in (String, Map, List)")
             }
         }
         return jMap
@@ -54,7 +53,6 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
                     val index = result.indexOf(element)
                     result[index] = processList(element)
                 }
-                else -> println("$element is not in (String, Map, List)")
             }
         }
         return result

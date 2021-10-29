@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
+const val COUNT = 1000
+
 @SpringBootTest(classes = [io.github.martbogdan.generator.GeneratorConfiguration::class])
 internal class GeneratorTest(@Autowired val generator: io.github.martbogdan.generator.Generator) {
     val template = """{
@@ -13,8 +15,17 @@ internal class GeneratorTest(@Autowired val generator: io.github.martbogdan.gene
     "vitalArr": [["vd1", "vc1"], ["vd2", "vc2"], ["vd3", "vc3"], ["vd4", "vc4"], ["vd5", "vc5"], ["vd6", "vc6"], ["vd7", "vc7"], ["vd8", "vc8"]],
     "dicCode1": "@oneOf(#dicNameCode)",
     "dicVit" : "@oneOf(#vitalArr)",
-    "listOfTest" : "@listOf(3, {fn: @firstname})"
+    "listOfTest" : "@listOf(3, {fn: @firstname})",
+    "exper": {
+        
+        "fn": "@firstname"
+    }
   },
+  "ex": "#exper",
+  "exper2": {
+        "@count": 5,
+        "fn": "@firstname"
+    },
   "firstname": "@firstname",
   "lastname": "@lastname",
   "dob": "@date",
@@ -38,8 +49,29 @@ internal class GeneratorTest(@Autowired val generator: io.github.martbogdan.gene
   }
 }"""
     @Test
-    fun generateJsonDataList() {
-        val result = generator.generateJsonDataList(template, 5)
-        println(result)
+    fun generateDataTest() {
+        val result = generator.generateData(template, COUNT)
+        val size = result.asSequence().count()
+        println(size)
+        assert(COUNT == size)
     }
+
+    @Test
+    fun generateDataElementTest() {
+        val result = generator.generateData(template, COUNT)
+        val list = result.asSequence().toList()
+
+        println(list[0])
+        println(list[1])
+        assert(list[0] != list[1])
+    }
+
+    @Test
+    fun generateDataMemoryTest() {
+        val result = generator.generateData(template, COUNT)
+        while (result.hasNext()) {
+            result.next()
+        }
+    }
+
 }
