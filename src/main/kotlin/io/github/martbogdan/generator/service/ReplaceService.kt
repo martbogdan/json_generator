@@ -31,7 +31,25 @@ class ReplaceService(@Autowired val replacer: ReplacerChain) {
                         jMap[entry.key] = replacer.replace(entry.value as String)
                     }
                 }
-                is HashMap<*, *> -> processMap(entry.value as HashMap<String, Any?>)
+                is HashMap<*, *> -> {
+                    val map = entry.value as HashMap<String, Any?>
+                    var count = 1
+                    if (map.containsKey(COUNT_KEY)) {
+                        count = map[COUNT_KEY].toString().toInt()
+                        map.remove(COUNT_KEY)
+                    }
+                    if (count > 1) {
+                        val list = mutableListOf<Any?>()
+
+                        val mapS = ObjectMapper().writeValueAsString(map)
+                        repeat(count) {
+                            list.add(processReplace(mapS))
+                        }
+                        jMap[entry.key] = list
+                    } else {
+                        processMap(entry.value as HashMap<String, Any?>)
+                    }
+                }
                 is List<*> -> jMap[entry.key] = processList(entry.value as List<*>)
             }
         }

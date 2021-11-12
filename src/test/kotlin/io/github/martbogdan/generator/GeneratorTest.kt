@@ -48,6 +48,15 @@ internal class GeneratorTest(@Autowired val generator: io.github.martbogdan.gene
         }
   }
 }"""
+
+    val template2 = """{
+  "@count": 1,
+  "array5": {
+        "@count": 5,
+        "fn": "@firstname"
+    },
+  "oneFromArray": "#array5"
+}"""
     @Test
     fun generateDataTest() {
         val result = generator.generateData(template, COUNT)
@@ -72,6 +81,17 @@ internal class GeneratorTest(@Autowired val generator: io.github.martbogdan.gene
         while (result.hasNext()) {
             result.next()
         }
+    }
+
+    @Test
+    fun generateCountTest() {
+        val result = generator.generateData(template2, COUNT)
+        val list = result.asSequence().toList()
+
+        val map = list[0] as HashMap<String, Any?>
+        println(list[0])
+        println(map["array5"])
+        assert(5 == (map["array5"] as List<Any?>).size)
     }
 
 }

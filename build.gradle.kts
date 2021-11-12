@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.github.martbogdan"
-version = "0.0.3"
+version = "0.0.4"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
@@ -63,12 +63,12 @@ publishing {
             }
             groupId = "io.github.martbogdan"
             artifactId = "generator"
-            version = "0.0.3"
+            version = "0.0.4"
         }
         create<MavenPublication>("maven") {
             groupId = "io.github.martbogdan"
             artifactId = "generator"
-            version = "0.0.3"
+            version = "0.0.4"
 
             from(components["java"])
         }
