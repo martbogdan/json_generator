@@ -58,6 +58,8 @@ class Configuration
 * @oneOf(1, 2, 3, 4), @oneOf([1, 2, 3]) @oneOf([[1, 2], [3, 4]]) - generates random one value of giver array as parameter
 * @oneAt(0, [1, 2, 3]) - returns value at index from array (first parameter is index of element in array as second parameter)
 * @manyOf(3, [1, 2, 3, 4, 5, 6, 7]) - returns random number (from 0 until value as first param) of values from array as second param
+* @Str(40) - returns random string of length 40 (9k6L8VFPBvCrvDI7wTUuEP0LfaWUXQ1FfOVp90rs)
+
 References in function parameters:
 * '#examppleField' - will return from given or already generated json field 
  (Example: { "date1": "2021-01-01", "date2": "@date(#date1, 2021-12-05)" }, field "date2" will be in range 2021-01-01 : 2021-12-05)
