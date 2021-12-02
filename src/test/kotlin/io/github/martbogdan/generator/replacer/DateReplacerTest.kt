@@ -40,4 +40,12 @@ internal class DateReplacerTest {
         println("${expected.month}")
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun generateDateLong() {
+        val replacer = "@date(long)"
+        val result = DateReplacer(dateRandomizer).generate(replacer)
+        println(result)
+        assert(result is Long)
+    }
 }

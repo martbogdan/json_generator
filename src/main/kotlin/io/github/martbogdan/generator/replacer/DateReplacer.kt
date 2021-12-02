@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Component
 class DateReplacer(@Autowired val dateRandomizer: DateRandomizer): io.github.martbogdan.generator.replacer.Replacer {
@@ -20,6 +21,9 @@ class DateReplacer(@Autowired val dateRandomizer: DateRandomizer): io.github.mar
             } catch (e: IllegalArgumentException) {
                 string
             }
+        }
+        if (list.size == 1 && list[0] == "long") {
+            return Date().time
         }
         return dateRandomizer.getRandomDate()
     }

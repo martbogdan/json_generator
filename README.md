@@ -53,6 +53,7 @@ class Configuration
 * @lastname - generates random last name
 * @date - generates random date from '1900-01-01' until now
 * @date(FROM, UNTIL) - generates random date from 'FROM' until 'UNTIL'
+* @date(long) - returns current time as Long  
 * @number - generates random Integer from -2147483648 until 2147483647
 * @number(FROM, UNTIL) - generates random Integer from 'FROM' until 'UNTIL'
 * @oneOf(1, 2, 3, 4), @oneOf([1, 2, 3]) @oneOf([[1, 2], [3, 4]]) - generates random one value of giver array as parameter

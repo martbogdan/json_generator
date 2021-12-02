@@ -36,6 +36,7 @@ internal class GeneratorTest(@Autowired val generator: io.github.martbogdan.gene
   "listOfTestResult": "#listOfTest",
   "listOfTest1" : "@listOf(3, {fn: @firstname})",
   "string": "@string(40)",
+  "dateLong": "@date(long)",
   "medRec" : {
         "dicFull": "#dicCode1",
         "dicObj": {
