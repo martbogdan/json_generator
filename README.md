@@ -56,6 +56,9 @@ class Configuration
 * @date(long) - returns current time as Long  
 * @number - generates random Integer from -2147483648 until 2147483647
 * @number(FROM, UNTIL) - generates random Integer from 'FROM' until 'UNTIL'
+* @double - generates random double from -1000000.000 until 1000000.000
+* @double(FROM, UNTIL) - generates random Double from 'FROM' until 'UNTIL'
+* @double(FROM, UNTIL, R) - generates random Double from 'FROM' until 'UNTIL' and round to R after point
 * @oneOf(1, 2, 3, 4), @oneOf([1, 2, 3]) @oneOf([[1, 2], [3, 4]]) - generates random one value of giver array as parameter
 * @oneAt(0, [1, 2, 3]) - returns value at index from array (first parameter is index of element in array as second parameter)
 * @manyOf(3, [1, 2, 3, 4, 5, 6, 7]) - returns random number (from 0 until value as first param) of values from array as second param
