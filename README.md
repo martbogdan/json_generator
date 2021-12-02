@@ -8,11 +8,11 @@ Maven:
  <dependency>
      <groupId>io.github.martbogdan</groupId>
      <artifactId>generator</artifactId>
-     <version>0.0.4</version>
+     <version>0.0.5</version>
      <type>pom</type>
  </dependency>
 Gradle:
- implementation 'io.github.martbogdan:generator:0.0.4'
+ implementation 'io.github.martbogdan:generator:0.0.5'
 ```
 * import Beans from the library into your configuration class
 ```
